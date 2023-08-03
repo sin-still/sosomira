@@ -18,7 +18,7 @@ const MainPage = () => {
         let url = 'http://localhost:8080/products';
         axios.get(url)
             .then((result) => {
-                const products = result.data.products;
+                const products = result.data.product;
                 setProducts(products);
                 setDisplayedProducts(products.slice(0, visibleCount));
             })
