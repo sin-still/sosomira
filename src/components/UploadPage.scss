@@ -1,0 +1,29 @@
+#upload-container{
+    padding-top: 36px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-left: 20px;
+    #upload-img{
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgb(230,230,230);
+        background: rgb(250, 250, 253);
+        margin: 16px auto;
+        .icon-camera{width: 50px;}
+        span{
+            font-size: 14px;
+            color: rgb(194, 194, 204);
+        }
+    }
+    .ant-form-item-required{
+        width: 100px;
+    }
+    #submit-button{
+        display: block;margin: 0 auto;
+    }
+}

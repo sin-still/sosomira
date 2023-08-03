@@ -1,0 +1,64 @@
+#back-btn{
+    display: flex;
+    margin: 20px auto;
+    padding: 5px 8px;
+    border: none;
+    box-shadow: 0 1px 5px #ed6363;
+    border-radius: 7px;
+    background: #fff;
+    color: #ed6363;
+}
+#image-box{
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{height: 100%;}
+}
+#profile-box{
+    padding: 16px;
+    margin: 8px 0 0 0;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    img{
+        width: 30px;
+        height: 30px;
+    }
+    .product-seller{
+        font-size: 15px;
+        margin-left: 8px;
+        font-weight: 600;
+    }
+}
+#contents-box{
+    padding: 16px;
+    #name{
+        font-size: 20px;
+    }
+    #price{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    #createAt{
+        font-size: 12px;
+        color: rgba(204,204,204);
+    }
+    #description{
+        margin-top: 16px;
+    }
+}
+
+
+
+
+
+
+
+//애니메이션
+.loadingIcon{animation-name: rotate; animation-iteration-count: infinite; animation-duration:1s;animation-timing-function: linear;}
+
+@keyframes rotate {
+    from{transform: rotate(0deg);}
+    to{transform: rotate(360deg);}
+}
