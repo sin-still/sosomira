@@ -15,7 +15,7 @@ const MainPage = () => {
     const [showAllProducts, setShowAllProducts] = useState(false);
 
     useEffect(() => {
-        let url = 'https://99b5fb6f-f4a6-4c01-ab8f-3300c08cdeec.mock.pstmn.io/products';
+        let url = 'http://localhost:8080/products';
         axios.get(url)
             .then((result) => {
                 const products = result.data.products;

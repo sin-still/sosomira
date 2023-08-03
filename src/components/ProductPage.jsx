@@ -11,7 +11,7 @@ const ProductPage = () => {
 
     useEffect(()=>{
         
-        axios.get(`https://99b5fb6f-f4a6-4c01-ab8f-3300c08cdeec.mock.pstmn.io/products/${id}`)
+        axios.get(`http://localhost:8080/products${id}`)
         .then((result)=>{
             setProduct(result.data)
         })
