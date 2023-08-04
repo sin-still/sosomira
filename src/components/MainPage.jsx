@@ -7,6 +7,7 @@ import Magazine from './Magazine';
 import Mdpick from './Mdpick';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config/constants";
 
 const MainPage = () => {
     const [products, setProducts] = useState([]);
@@ -15,10 +16,11 @@ const MainPage = () => {
     const [showAllProducts, setShowAllProducts] = useState(false);
 
     useEffect(() => {
-        let url = 'http://localhost:8080/products';
+        let url = `${ API_URL }/products`;
         axios.get(url)
             .then((result) => {
                 const products = result.data.product;
+                
                 setProducts(products);
                 setDisplayedProducts(products.slice(0, visibleCount));
             })
@@ -60,10 +62,10 @@ const MainPage = () => {
                     {displayedProducts.map((product, idx) => {
                         idx++
                         return (
-                            <Link className="product-link" to={`/productpage/${idx}`}>
-                                <div className="product-card" key={idx}>
+                            <Link className="product-link" to={`/productpage/${product.id}`}>
+                                <div className="product-card" key={product.id}>
                                     <div>
-                                        <img src={product.imageUrl} alt="프로덕트이미지01"  className="product-img" />
+                                        <img src={`${API_URL}/${product.imageUrl}`} alt="프로덕트이미지01"  className="product-img" />
                                     </div>
                                     <div className="product-contents">
                                         <div className="product-name">{product.name}</div>

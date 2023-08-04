@@ -1,21 +1,67 @@
 import { AiFillCamera } from "react-icons/ai";
-import React from "react";
-import { Button, InputNumber, Divider, Form, Input } from "antd";
+import React, { useState } from "react";
+import { Button, InputNumber, Divider, Form, Input, Upload, message } from "antd";
 import "./UploadPage.scss";
+import { API_URL } from "../config/constants";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 
 const { TextArea } = Input;
 const UploadPage = () => {
-  const onFinish = (values) => {
+  
+  const [ imageUrl, setImageUrl ] = useState(null)
+  const history = useNavigate();
+
+  const onSubmit = (values) => {
     console.log("Success:", values);
+    axios.post(`${ API_URL }/products`,{
+      name: values.name,
+      description:values.description,
+      seller: values.seller,
+      price: parseInt(values.price), 
+      // parseInt: 정수로 가져오게끔 하는 것. 
+      imageUrl: imageUrl
+    }).then(( result )=>{
+      console.log(result);
+      history('/', {replace:true});
+    }).catch(( err )=>{
+      console.error(err);
+      message.error(`에러가 발생했습니다.${err.message}`)
+    })
   };
+
+  const onChangeImage = (info) => {
+    if(info.file.status === 'uploading'){
+      return
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const imageUrl = response.imageUrl;
+      setImageUrl(imageUrl)
+    }
+  }
+
   return (
     <div id="upload-container">
-      <Form name="uploadForm" onFinish={onFinish}>
+      <Form name="uploadForm" onFinish={onSubmit} initialValues={{ name: '', price: 0, seller: '', description: '' }}>
         <Form.Item name="upload">
-          <div id="upload-img">
-            <AiFillCamera className="icon-carmera" />
-            <span>이미지를 업로드해주세요</span>
-          </div>
+          <Upload 
+          name="image" 
+          action={`${ API_URL}/image`} 
+          listType="picture" 
+          showUploadList={false} 
+          onChange={onChangeImage}>
+            {
+              imageUrl ? (<img id="upload-img" src={`${ API_URL }/${imageUrl}`} alt="img" />):(
+              <div id="upload-img-placeholder">
+                <AiFillCamera className="icon-carmera" />
+                <span>이미지를 업로드해주세요</span>
+              </div>)
+            }
+            
+          </Upload>
         </Form.Item>
         <Divider />
         <Form.Item
