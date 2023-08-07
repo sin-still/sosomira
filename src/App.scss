@@ -28,7 +28,8 @@ $desktop-min: 1440px;
     border-bottom: 1px solid #ccc;
     background: rgba(255,255,255,.8);
    .container{
-        width: 1440px; 
+        width: 100%;
+        max-width: 1440px;
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -516,17 +517,18 @@ $desktop-min: 1440px;
   }
   @include tablet{
     .header{
+
       .container{
         width: 100%;
         padding: 0 2rem;
         box-sizing: border-box;
+        
         h1{order:2}
-        .logo{}
+        .logo{order: 2;}
         .nav{
           display: none;
-          z-index: 2;
         }
-        .mobileBar{display: block; order: 1}
+        .mobileBar{display: block !important; order: 1;}
         .btn{
             background: none;
             width:80px;
