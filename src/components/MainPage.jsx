@@ -62,8 +62,9 @@ const MainPage = () => {
                     {displayedProducts.map((product, idx) => {
                         idx++
                         return (
-                            <Link className="product-link" to={`/productpage/${product.id}`}>
-                                <div className="product-card" key={product.id}>
+                            <div className="product-card" key={product.id}>
+                                {product.soldout === 1? <div className="product-blur"><span>SOLD OUT</span></div> : null}
+                                <Link className="product-link" to={`/productpage/${product.id}`}>
                                     <div>
                                         <img src={`${API_URL}/${product.imageUrl}`} alt="프로덕트이미지01"  className="product-img" />
                                     </div>
@@ -75,8 +76,8 @@ const MainPage = () => {
                                             <span className="seller">{product.seller}</span>
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
                         );
                     })} 
                 </div>

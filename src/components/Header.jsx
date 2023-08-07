@@ -7,10 +7,11 @@ import logo from '../img/sosomira1.svg';
 import Navbar from './Navbar';
 import { CSSTransition } from 'react-transition-group';
 import './DropdownMenu.css'
-
+import ScrollPosition  from "../event/ScrollPosition"
 
 
 const Header = () => {
+    const scrollPosition = ScrollPosition();
     const navigate = useNavigate()
     const [ icon, setIcon ] = useState(true);
     const toggleMenu = ()=>{
@@ -21,7 +22,7 @@ const Header = () => {
     }, [icon]);
   
     return (
-        <header className='header'>
+        <header className={`header ${scrollPosition > 0 ? 'h-fixed' : ''}`}>
             <div className='container'>
                 <h1 className='logoBox'><Link to="/"><img className='logo' src={logo} alt="logo" /></Link></h1>
                 <Navbar/>
