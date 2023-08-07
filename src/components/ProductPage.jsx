@@ -20,6 +20,17 @@ const ProductPage = () => {
                 console.log(error);
             });
     }
+    const onClickDelete = () => {
+        axios
+          .delete(`${API_URL}/products/${id}`)
+          .then((result) => {
+            message.info("상품을 삭제하였습니다.");
+            navigate(-1); // 삭제 후 이전 페이지로 이동
+          })
+          .catch((error) => {
+            message.error(`에러가 발생했습니다.${error.message}`);
+          });
+      };
 
     useEffect(() => {
         getProduct()
@@ -70,6 +81,14 @@ const ProductPage = () => {
                 </div>
             </div>
             <h3>{id}번째 페이지입니다.</h3>
+            <Button
+        type="primary"
+        danger
+        className="delete"
+        
+        onClick={onClickDelete}
+      >
+      </Button>
         </div>
     );
 };
