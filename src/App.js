@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import UploadPage from './components/UploadPage';
 import ProductPage from './components/ProductPage';
 
+
 function App() {
   return (
     <div className="App">
