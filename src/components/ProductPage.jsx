@@ -48,7 +48,7 @@ const ProductPage = () => {
   };
 
   const handleModalOk = () => {
-    const correctPassword = "2684597"; // 실제 올바른 비밀번호로 대체해주세요
+    const correctPassword = `${process.env.REACT_APP_API_KEY}`; // 실제 올바른 비밀번호로 대체해주세요
     if (passwordInput === correctPassword) {
       setIsModalVisible(false);
       onDeleteProduct();

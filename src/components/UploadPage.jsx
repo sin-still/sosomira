@@ -7,13 +7,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
+const passwords = process.env.REACT_APP_PASSWORDKEY
 
 const UploadPage = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isPasswordPopupVisible, setIsPasswordPopupVisible] = useState(false);
   const [password, setPassword] = useState("");
   const history = useNavigate();
-
+  console.log(passwords)
   const onSubmit = (values) => {
     // 비밀번호 팝업을 띄웁니다.
     setIsPasswordPopupVisible(true);
@@ -36,8 +37,9 @@ const UploadPage = () => {
 
   const handlePasswordSubmit = () => {
     // 비밀번호 검증을 여기에서 수행합니다.
+    
     // 비밀번호가 올바르다면 상품 등록을 수행합니다.
-    if (password === "2684597") {
+    if (password===process.env.REACT_APP_PASSWORDKEY) {
       setIsPasswordPopupVisible(false); // 비밀번호가 올바른 경우, 팝업 닫기
       axios
         .post(`${API_URL}/products`, {
@@ -59,10 +61,9 @@ const UploadPage = () => {
       message.error("비밀번호가 올바르지 않습니다.");
     }
   };
-
   const [form] = Form.useForm();
   const formValues = form.getFieldsValue();
-
+  
   return (
     <div id="upload-container">
       <Form form={form} name="uploadForm" onFinish={onSubmit} initialValues={{ name: "", price: 0, seller: "", description: "" }}>
