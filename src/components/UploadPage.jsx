@@ -39,7 +39,7 @@ const UploadPage = () => {
     // 비밀번호 검증을 여기에서 수행합니다.
     
     // 비밀번호가 올바르다면 상품 등록을 수행합니다.
-    if (password===process.env.REACT_APP_PASSWORDKEY) {
+    if (password === process.env.REACT_APP_PASSWORD) {
       setIsPasswordPopupVisible(false); // 비밀번호가 올바른 경우, 팝업 닫기
       axios
         .post(`${API_URL}/products`, {
