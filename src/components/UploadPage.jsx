@@ -109,7 +109,7 @@ const UploadPage = () => {
           seller: formValues.seller,
           price: parseInt(formValues.price),
           imageUrl: imageUrl,
-          category: formValues['category'][0]
+          category: formValues['category'][0].children[1]
         })
         .then((result) => {
           console.log(result);
