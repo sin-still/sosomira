@@ -98,7 +98,7 @@ const UploadPage = () => {
   const handlePasswordSubmit = () => {
     // 비밀번호 검증을 여기에서 수행합니다.
     const formValues = form.getFieldsValue(); // 현재 폼 필드의 값 가져오기
-    console.log("formValues.category:", formValues.category);
+    console.log("formValues.category:", formValues['category'][1])
     // 비밀번호가 올바르다면 상품 등록을 수행합니다.
     if (password === process.env.REACT_APP_PASSWORD) {
       setIsPasswordPopupVisible(false); // 비밀번호가 올바른 경우, 팝업 닫기
@@ -109,7 +109,7 @@ const UploadPage = () => {
           seller: formValues.seller,
           price: parseInt(formValues.price),
           imageUrl: imageUrl,
-          category: formValues['category'][0].children[1]
+          category: formValues['category'][1]
         })
         .then((result) => {
           console.log(result);
