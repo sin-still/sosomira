@@ -193,6 +193,19 @@ $desktop-min: 1440px;
     margin: 0 auto;
     padding: 100px 0;
     box-sizing: border-box;
+    .products-tab{
+      width: 100%;
+      text-align: center;
+      margin: 100px 0;
+      margin-top: 50px;
+      .products-tab-menu{
+        width: 50%;
+        .products-tab-item{
+          width: 33%;
+
+        }
+      }
+    }
     .productsBtnBox{
       display: block;
       text-align: center;

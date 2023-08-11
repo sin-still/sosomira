@@ -103,7 +103,7 @@ const UploadPage = () => {
     const formValues = form.getFieldsValue(); // 현재 폼 필드의 값 가져오기
     console.log("formValues.category:", formValues['category'][1])
     // 비밀번호가 올바르다면 상품 등록을 수행합니다.
-    if (password === '13579') {
+    if (password === passwords) {
       setIsPasswordPopupVisible(false); // 비밀번호가 올바른 경우, 팝업 닫기
       axios
       .post(`${API_URL}/products`, {

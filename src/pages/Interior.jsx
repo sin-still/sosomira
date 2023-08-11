@@ -5,6 +5,7 @@ import { API_URL } from "../config/constants";
 import { AiFillAliwangwang } from "react-icons/ai"; 
 import { BiPlus } from "react-icons/bi"; 
 import { AiOutlineMinus } from "react-icons/ai"; 
+import { Radio } from 'antd';
 
 const Interior = () => {
     
@@ -12,20 +13,32 @@ const Interior = () => {
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [visibleCount, setVisibleCount] = useState(12);
     const [showAllProducts, setShowAllProducts] = useState(false);
-    
+    const [selectedValue, setSelectedValue] = useState("a")
+    const categoryData = () => {
+        if (selectedValue === 'a') {
+            return 'C01';
+        } else if (selectedValue === 'b') {
+            return 'C0101';
+        } else if (selectedValue === 'c') {
+            return 'C0102';
+        } else {
+            return 'Unknown Category';
+        }
+    };
+    console.log(categoryData());
     useEffect(() => {
         let url = `${ API_URL }/products`;
         axios.get(url)
             .then((result) => {
-                const products = result.data.product;
-                
+                const products = result.data.product.filter(item => item.category.includes(categoryData())) ;
+                console.log(categoryData())
                 setProducts(products);
                 setDisplayedProducts(products.slice(0, visibleCount));
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [visibleCount]);
+    }, [visibleCount, selectedValue]);
 
     const handleLoadMore = () => {
         if (visibleCount + 12 < products.length) {
@@ -44,15 +57,27 @@ const Interior = () => {
             setVisibleCount(4);
         }
     };
+    const onChange = (e) => {
+        const value = e.target.value; // 선택된 라디오 버튼의 값
+        setSelectedValue(value); // selectedValue를 업데이트
+    
+        console.log(`radio checked: ${value}`);
+    };
     return (
         <div>
-            <h2>인테리어</h2>
 
             <div className="products">
-                <h2 className="products-title">Products</h2>
+                <h2 className="products-title">인테리어</h2>
+                <div className='products-tab'>
+                    <Radio.Group onChange={onChange} defaultValue={selectedValue} className='products-tab-menu'>
+                        <Radio.Button className='products-tab-item' value="a">ALL</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="b">테이블/쇼파</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="c">장식품</Radio.Button>
+                    </Radio.Group>
+                </div>
                 <div id="product-list" className="p-list">
                     {displayedProducts.map((product) => {
-                        
+                        <></>
                         return (
                             <div className="product-card" key={product.id}>
                                 {product.soldout === 1? <div className="product-blur"><span>SOLD OUT</span></div> : null}
