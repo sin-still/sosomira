@@ -7,9 +7,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
-const passwords = process.env.REACT_APP_PASSWORDKEY
+
 
 const UploadPage = () => {
+  const passwords = process.env.REACT_APP_PASSWORD
+  console.log("🚀 ~ file: UploadPage.jsx:14 ~ UploadPage ~ passwords:", passwords)
   const treeData = [
     {
       label: '인테리어',
@@ -96,11 +98,12 @@ const UploadPage = () => {
   };
 
   const handlePasswordSubmit = () => {
+    console.log(passwords)
     // 비밀번호 검증을 여기에서 수행합니다.
     const formValues = form.getFieldsValue(); // 현재 폼 필드의 값 가져오기
     console.log("formValues.category:", formValues['category'][1])
     // 비밀번호가 올바르다면 상품 등록을 수행합니다.
-    if (password === process.env.REACT_APP_PASSWORD) {
+    if (password === passwords) {
       setIsPasswordPopupVisible(false); // 비밀번호가 올바른 경우, 팝업 닫기
       axios
       .post(`${API_URL}/products`, {
