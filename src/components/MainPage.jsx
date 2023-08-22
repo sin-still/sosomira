@@ -8,26 +8,33 @@ import Mdpick from './Mdpick';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config/constants";
+import Screen from "./Screen";
 
 const MainPage = () => {
     const [products, setProducts] = useState([]);
     const [displayedProducts, setDisplayedProducts] = useState([]);
-    const [visibleCount, setVisibleCount] = useState(4);
+    
     const [showAllProducts, setShowAllProducts] = useState(false);
+    // 보여지는 프로덕트 총개수
+    const [visibleCount, setVisibleCount] = useState(8);
+    Screen(setVisibleCount);
 
     useEffect(() => {
         let url = `${ API_URL }/products`;
         axios.get(url)
             .then((result) => {
                 const products = result.data.product;
-                
                 setProducts(products);
-                setDisplayedProducts(products.slice(0, visibleCount));
+
+                // Only update displayedProducts when not showing all products
+                if (!showAllProducts) {
+                    setDisplayedProducts(products.slice(0, visibleCount));
+                }
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [visibleCount]);
+    }, [visibleCount, showAllProducts]);
 
     const handleLoadMore = () => {
         if (visibleCount + 4 < products.length) {
@@ -41,9 +48,9 @@ const MainPage = () => {
     const handleToggleProducts = () => {
         setShowAllProducts(!showAllProducts);
         if (!showAllProducts) {
-            setVisibleCount(products.length);
+            setDisplayedProducts(products); // Show all products
         } else {
-            setVisibleCount(4);
+            setDisplayedProducts(products.slice(0, visibleCount)); // Show limited products
         }
     };
 
@@ -65,12 +72,12 @@ const MainPage = () => {
                             <div className="product-card" key={product.id}>
                                 {product.soldout === 1? <div className="product-blur"><span>SOLD OUT</span></div> : null}
                                 <Link className="product-link" to={`/productpage/${product.id}`}>
-                                    <div>
+                                    <div className="product-imgBox">
                                         <img src={`${API_URL}/${product.imageUrl}`} alt="프로덕트이미지01"  className="product-img" />
                                     </div>
                                     <div className="product-contents">
                                         <div className="product-name">{product.name}</div>
-                                        <div className="product-price">{product.price}</div>
+                                        <div className="product-price">{product.price}원</div>
                                         <div className="product-seller">
                                             <AiFillAliwangwang className="product-avatar" />
                                             <span className="seller">{product.seller}</span>

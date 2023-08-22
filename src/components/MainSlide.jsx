@@ -16,8 +16,8 @@ const Mainslide = () => {
         navigation
         pagination={{ clickable: true }}
         /* scrollbar={{ draggable: true }} */
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
+/*         onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => console.log('slide change')} */
         style={{
             "--swiper-pagination-color": "lavender",
             "--swiper-navigation-color": "turquoise",

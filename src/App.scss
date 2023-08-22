@@ -191,7 +191,7 @@ $desktop-min: 1440px;
     width: 100%;
     max-width: 1540px;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 100px 50px;
     box-sizing: border-box;
     .products-tab{
       width: 100%;
@@ -235,7 +235,9 @@ $desktop-min: 1440px;
           margin-bottom: 20px; /* 각 행 사이에 간격을 줌 */
           box-sizing: border-box;
           position: relative;
-          
+          @include tablet{
+            width: 30%;
+          }
           
           .product-blur{
             position: absolute;
@@ -255,11 +257,13 @@ $desktop-min: 1440px;
             
             text-decoration: none;
             color: #222;
-            
-          .product-img {
-            width: 100%;
-            height: 500px;
-          }
+            .product-imgBox{
+              height: 500px;
+              .product-img {
+                height: 90%;
+                width: 100%;
+              }
+            }
     
           .product-contents {
             display: flex;
@@ -555,5 +559,6 @@ $desktop-min: 1440px;
     .products{
       padding: 30px 60px;
       box-sizing: border-box;
+      
     }
   } 

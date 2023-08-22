@@ -18,7 +18,7 @@ const Header = () => {
         setIcon(prevIcon => !prevIcon);
     }
     useEffect(() => {
-        console.log('Navbar is rendered');
+        /* console.log('Navbar is rendered'); */
     }, [icon]);
   
     return (
