@@ -9,6 +9,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import UploadPage from './components/UploadPage';
 import ProductPage from './components/ProductPage';
+import SignUpForm from './pages/SignUpForm';
+
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
         <Route path='/fabric' element= {<Fabric />} />
         <Route path='/uploadpage' element= {<UploadPage />} />
         <Route path='/productpage/:id' element= {<ProductPage />} />
+        <Route path='/signup' element= {<SignUpForm />} />
       </Routes>
 
       <Footer />
