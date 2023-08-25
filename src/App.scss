@@ -2,6 +2,9 @@
 $tablet-max: 1023px;
 $desktop-min: 1440px;
 
+.success-color{color: #60d119;}
+.error-color{color: red;}
+
 
  @mixin tablet{
   @media (max-width: $tablet-max) {
@@ -18,7 +21,22 @@ $desktop-min: 1440px;
   top: 0;
   left: 0;
 }
+ul{
+  list-style: none;
+  a{
+    text-decoration: none;
+  }
+}
 .App{
+  .sssss{width: 50px !important;}
+  .ant-form-item-label{
+    width: 30px;
+  }
+  .ant-col-8{
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+    
   overflow: hidden;
   //HEADER
   .header{
@@ -35,6 +53,49 @@ $desktop-min: 1440px;
         align-items: center;
         justify-content: space-between;
         height: 100%;
+        .signArea{
+          .signList{
+            display: flex;
+            justify-content: space-between;
+            li{
+              &::after {
+                content: "";
+                background: #867070;
+                width: 100%;
+                height: 1px;
+                position: absolute;
+                left: 0;
+                bottom: -5px;
+                transform: scaleX(0);
+                transition: .3s;
+              }
+              &:hover{
+                color: #ed6363;
+                font-weight: 500;
+                  
+              }
+              &:hover::after{
+                transform: scaleX(1);
+              }
+              position: relative;
+            }
+            .sign-in{
+              margin-right: 10px;
+              width: 3rem;
+              
+            }
+            .sign-up{
+              a{
+                color: #000;
+                &:hover{
+                  color: #ed6363;
+                  font-weight: 500;
+                    
+                }
+              }
+            }
+          }
+        }
         .logo{width: 150px; fill: #ed6363;}
         img.svg-img {
            /* 원하는 색상으로 설정 */
@@ -492,6 +553,63 @@ $desktop-min: 1440px;
         }
     }
   }
+  .signWrap{
+    ul{list-style: none;}
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    .flexBox{display: flex; align-items: center; height: 3.6rem;}
+    .signUpArea{
+      padding:1rem 5rem 5rem 5rem;
+      border: none;
+      margin: 0 auto;
+      max-width: 1000px;
+      .label-style{
+        display: block; margin-bottom: .5rem;font-size: 1.0rem;
+      }
+      .input-style{
+        width: 35rem; height: 3.6rem;border: 1px solid #ddd;margin-right: .5rem; padding: .3rem 1rem;font-size:1.3rem;box-sizing: border-box;
+      }
+      .input-style2{
+        height: 3.6rem;border: 1px solid #ddd; width:24.1rem; font-size:1.3rem;
+      }
+      .btn-style{
+        width: 20%; height: 3.6rem; background: #fff; border: 1px solid #ddd; color: #959595;box-sizing: border-box;
+      }
+      .submit-style{
+        width: 100%; height: 5.0rem; background: #644b36; color: #fff;font-size: 1.5rem;
+        border: none;
+      }
+      .select-style{
+        width: 10.0rem; height: 3.6rem; border: 1px solid #ddd;
+      }
+      .help-style{
+        margin-top: .5rem; display: block;font-size: .8rem; color: #959595; letter-spacing: 1px;
+      }
+      .area-style{
+        padding-left: 2rem;
+        padding-bottom: 20px;
+      }
+      .Mes-style{
+        display: block;
+      }
+      .btn-style{
+        &:hover{
+          color: #000;
+        }
+      }
+      .termsBox{
+        height: 15.0rem; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; padding: 2.0rem; border: 1px solid #959595; margin: 1.0rem 0 2.0rem; 
+        &::-webkit-scrollbar{display: none;}
+      }
+      .terms-section h3{margin-top: 30px;}
+    }
+    .submit-section{
+      display: flex; justify-content: center;
+    }
+  }
+
+
   @include desktop{
     
     .header{
