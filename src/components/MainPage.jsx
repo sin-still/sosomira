@@ -37,9 +37,11 @@ const MainPage = () => {
     }, [visibleCount, showAllProducts]);
 
     const handleLoadMore = () => {
-        if (visibleCount + 4 < products.length) {
+        if (visibleCount + 4 <= products.length) {
+            setDisplayedProducts(products.slice(0, visibleCount + 4));
             setVisibleCount(visibleCount + 4);
         } else {
+            setDisplayedProducts(products);
             setVisibleCount(products.length);
             setShowAllProducts(true);
         }
@@ -48,7 +50,7 @@ const MainPage = () => {
     const handleToggleProducts = () => {
         setShowAllProducts(!showAllProducts);
         if (!showAllProducts) {
-            setDisplayedProducts(products); // Show all products
+            setDisplayedProducts(products.slice(0, visibleCount + 4)); // Show limited products with the next batch
         } else {
             setDisplayedProducts(products.slice(0, visibleCount)); // Show limited products
         }
