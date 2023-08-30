@@ -1,5 +1,8 @@
 import { AiOutlineCheck } from "react-icons/ai"; 
 import React, { useEffect, useRef, useState } from 'react';
+import { API_URL } from "../config/constants";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
    
@@ -28,7 +31,7 @@ const SignUpForm = () => {
    const emailRule = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
    const birthRule = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
-
+/* 1. 회원가입 만들기 BE */
    const [ messages, setMessages ] = useState({
       id: { text: '', color: '' },
       pw: { text: '', color: '' },
@@ -38,15 +41,17 @@ const SignUpForm = () => {
       email: { text: '', color: '' },
       birth: { text: '', color: '' }
    });
+
    const [allChecked, setAllChecked] = useState(false);
    const [termsChecked, setTermsChecked] = useState(false);
    const [privacyChecked, setPrivacyChecked] = useState(false);
    const [marketingChecked, setMarketingChecked] = useState(false);
-   const [isSubmitted, setIsSubmitted] = useState(false);
+   const [isSubmitted, setIsSubmitted] = useState(false); // 회원가입 제출 여부
+   const [isRegistered, setIsRegistered] = useState(false); // 회원가입 완료 여부
+   const history = useNavigate();
 
    const handleSubmit = (event) => {
       event.preventDefault();
-
       // 모든 조건 검사
       if (
          idRule.test(id) &&
@@ -59,21 +64,53 @@ const SignUpForm = () => {
          termsChecked &&
          privacyChecked &&
          marketingChecked
-      ) {
+      ) {         
          // 모든 조건을 통과한 경우
-         setIsSubmitted(true);
+         try {
+            // db 에 회원가입 정보를 넣어본다.
+            axios
+            .post(`${API_URL}/users`, {
+               user_id: id,
+               pw: pw,
+               name: name,
+               phone: phone,
+               email: email,
+               birth: birth,
+               marketingChecked: marketingChecked ? "True" : "False"
+              })
+              .then((result) => {
+                console.log(result);
+                history("/", { replace: true });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+            setIsRegistered(true);
+            setIsSubmitted(true);
+         } catch (error) {
+            // db에 회원가입 정보 넣기 실패
+            console.log(error);
+            setIsRegistered(false);
+            setIsSubmitted(true);
+         }
       } else {
          // 조건을 만족하지 않은 경우
-         setIsSubmitted(false);
+         setIsRegistered(false);
+         setIsSubmitted(true);
       }
    };
 
    useEffect(() => {
       if (isSubmitted) {
-         // 회원 가입이 완료되었다는 얼럿 창 표시
-         alert('회원 가입이 완료되었습니다.');
+         if(isRegistered){
+            // 회원 가입이 완료되었다는 얼럿 창 표시
+            alert('회원 가입이 완료되었습니다.');
+         } else {
+            // 회원 가입 실패
+            alert('회원가입에 실패했습니다.');
+         }
       }
-   }, [isSubmitted]);
+   }, [isSubmitted, isRegistered]);
 
    const handleAllCheck = () => {
       setAllChecked(!allChecked);
@@ -238,7 +275,7 @@ const SignUpForm = () => {
                   </li>
                   <li className='name-section'>
                      <div className='area-style'>
-                        <label for="nameArea" className="label-style">이름</label>
+                        <label htmlFor="nameArea" className="label-style">이름</label>
                         
                         <input type="text" name="nameArea" 
 
@@ -248,7 +285,7 @@ const SignUpForm = () => {
                   </li>
                   <li className='phone-section'>
                      <div className='area-style'>
-                        <label for="phoneArea" className="label-style">휴대전화</label>
+                        <label htmlFor="phoneArea" className="label-style">휴대전화</label>
                         <div className="flexBox">
                            <select name="phoneNumber" id="phoneNumber" className="select-style">
                                  <option value="010">010</option>
@@ -268,7 +305,7 @@ const SignUpForm = () => {
                   </li>
                   <li className='email-section'>
                      <div className='area-style'>
-                        <label for="emailArea" className="label-style">E-mail</label>
+                        <label htmlFor="emailArea" className="label-style">E-mail</label>
                         <input type="text" name="emailArea" 
                         id="emailArea" className="input-style" required size="30" value={email} onBlur={handleEmail} onChange={(event)=>{setEmail(event.target.value)}} ref={emailInputRef}/>
                         <span className={`Mes-style ${messages.email.color}`}>{messages.email.text}</span>
@@ -277,7 +314,7 @@ const SignUpForm = () => {
                   </li>
                   <li className='birth-section'>
                      <div className='area-style'>
-                        <label for="birthArea" className="label-style">생년월일</label>
+                        <label htmlFor="birthArea" className="label-style">생년월일</label>
                         <input type="text" name="birthArea" 
                         id="birthArea" className="input-style" required size="8" value={birth} onBlur={handleBirth} onChange={(event)=>{setBirth(event.target.value)}} ref={birthInputRef}/>
                         <span className={`Mes-style ${messages.birth.color}`}>{messages.birth.text}</span>
@@ -294,7 +331,7 @@ const SignUpForm = () => {
                   <br />
                   <li id="terms-section">
                      <input type="checkbox" id="allCheck" className="check-style" checked={allChecked} onChange={handleAllCheck}/>
-                     <label for="allCheck">이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두 동의합니다.</label> 
+                     <label htmlFor="allCheck">이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두 동의합니다.</label> 
                      <br/>
                      <h3>[필수] 이용약관 동의</h3>
                      <div className="termsBox">
@@ -330,7 +367,7 @@ const SignUpForm = () => {
                      <p>
                         <span>이용약관에 동의하십니까? </span>
                         <input type="checkbox" id="terms-check1" className="check-style"  checked={termsChecked} onChange={() => setTermsChecked(!termsChecked)}/>
-                        <label for="terms-check1"> 동의함</label>
+                        <label htmlFor="terms-check1"> 동의함</label>
                      </p>
                      <h3>[필수] 개인정보 수집 및 이용 동의</h3>
                      <div className="termsBox">
@@ -365,7 +402,7 @@ const SignUpForm = () => {
                      </div>
                      <p>
                         <span>개인정보 수집 및 이용에 동의하십니까? </span>
-                        <label for="terms-check2"> 동의함</label>
+                        <label htmlFor="terms-check2"> 동의함</label>
                         <input type="checkbox" id="terms-check2" className="check-style" checked={privacyChecked} onChange={() => setPrivacyChecked(!privacyChecked)}/>
                      </p>
                      <h3>[필수] 쇼핑정보 수신 동의</h3>
@@ -402,13 +439,12 @@ const SignUpForm = () => {
                      <p>
                         <span>SMS 수신을 동의하십니까? </span>
                         <input type="checkbox" id="terms-check3" className="check-style"checked={marketingChecked} onChange={() => setMarketingChecked(!marketingChecked)}/>
-                        <label for="terms-check3"> 동의함</label>
+                        <label htmlFor="terms-check3"> 동의함</label>
                      </p>
                   </li>
                   <li className='submit-section'>
                      <button type="submit" className="submit-style">회원가입</button>
                   </li>
-
                </ul>
             </form>   
          </fieldset>      
