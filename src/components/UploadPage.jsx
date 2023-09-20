@@ -143,6 +143,8 @@ const UploadPage = () => {
             상품등록하기
           </Button>
         </Form.Item>
+        <Form.Item>
+        </Form.Item>
       </Form>
 
       {/* Password Popup */}
