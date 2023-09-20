@@ -62,7 +62,7 @@ const MainPage = () => {
             <Mdpick />
             <div className="banner">
                 <p>
-                    Lorem ipsum dolor sit amet.
+                    
                 </p>
             </div>
             <div className="products">
@@ -78,7 +78,7 @@ const MainPage = () => {
                                         <img src={`${API_URL}/${product.imageUrl}`} alt="프로덕트이미지01"  className="product-img" />
                                     </div>
                                     <div className="product-contents">
-                                        <div className="product-name">{product.name}</div>
+                                        <div className="product-name"er>{product.name}</div>
                                         <div className="product-price">{product.price}원</div>
                                         <div className="product-seller">
                                             <AiFillAliwangwang className="product-avatar" />

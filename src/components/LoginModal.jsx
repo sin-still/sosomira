@@ -68,7 +68,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                            message: "Please input your username!",
                         },
                      ]}
-                     style={{marginLeft:'-20%'}}
+                     /* style={{marginLeft:'-20%'}} */
                   >
                      <Input />
                   </Form.Item>
@@ -82,7 +82,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                            message: "Please input your password!",
                         },
                      ]}
-                     style={{marginLeft:'-20%'}}
+                     /* style={{marginLeft:'-20%'}} */
                   >
                      <Input.Password />
                   </Form.Item>
