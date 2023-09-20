@@ -38,7 +38,7 @@ const Header = () => {
                   <img className='logo' src={logo} alt='logo' />
                </Link>
             </h1>
-            <Navbar />
+            <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
             <div className='mobileBar'>
                {icon ? (
                   <GiHamburgerMenu
@@ -54,7 +54,7 @@ const Header = () => {
                   classNames='menu'
                   unmountOnExit
                >
-                  <Navbar />
+                  <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
                </CSSTransition>
             </div>
             <div className="signArea">
