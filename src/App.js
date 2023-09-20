@@ -3,7 +3,7 @@ import './App.scss';
 import MainPage from './components/MainPage';
 import Interior from './pages/Interior';
 import Kitchen from './pages/Kitchen';
-import Office from './pages/Office';
+import Light from './pages/Light';
 import Fabric from './pages/Fabric';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -22,7 +22,7 @@ function App() {
         <Route path='/' element={ <MainPage />} />
         <Route path='/interior' element={ <Interior />} />
         <Route path='/kitchen' element={ <Kitchen />} />
-        <Route path='/office' element={ <Office />} />
+        <Route path='/light' element={ <Light />} />
         <Route path='/fabric' element= {<Fabric />} />
         <Route path='/uploadpage' element= {<UploadPage />} />
         <Route path='/productpage/:id' element= {<ProductPage />} />

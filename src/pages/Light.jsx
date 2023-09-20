@@ -29,9 +29,9 @@ const Office = () => {
         if (categoryData() === 'C03') {
             return 'All';
         } else if (selectedValue === 'C0301') {
-            return '필기구';
+            return '펜던트';
         } else if (selectedValue === 'C0302') {
-            return '팬시용품';
+            return '테이블';
         } else {
             return 'Unknown Category';
         }
@@ -78,12 +78,12 @@ const Office = () => {
         <div>
 
             <div className="products">
-                <h2 className="products-title">사무용품</h2>
+                <h2 className="products-title">조명</h2>
                 <div className='products-tab'>
                     <Radio.Group onChange={onChange} defaultValue={selectedValue} className='products-tab-menu'>
                         <Radio.Button className='products-tab-item' value="a">ALL</Radio.Button>
-                        <Radio.Button className='products-tab-item' value="b">필기구</Radio.Button>
-                        <Radio.Button className='products-tab-item' value="c">팬시용품</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="b">펜던트</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="c">테이블</Radio.Button>
                     </Radio.Group>
                 </div>
                 <div id="product-list" className="p-list">
@@ -115,10 +115,10 @@ const Office = () => {
                             <BiPlus />
                         </button>
                     )}
-                    {visibleCount >= products.length && (
+                    {/* {visibleCount >= products.length && (
                         <button onClick={handleToggleProducts} className="productsBtn">
                         </button>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

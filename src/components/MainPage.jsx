@@ -96,11 +96,13 @@ const MainPage = () => {
                             <BiPlus />
                         </button>
                     )}
-                    {visibleCount >= products.length && (
+                    {visibleCount >= products.length && null
+                    /* (
                         <button onClick={handleToggleProducts} className="productsBtn">
-                            {showAllProducts ? <AiOutlineMinus /> : "더 보이기"}
+                            
                         </button>
-                    )}
+                    ) */
+                    }
                 </div>
             </div>
             <Magazine />

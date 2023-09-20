@@ -104,10 +104,10 @@ const Kitchen = () => {
                             <BiPlus />
                         </button>
                     )}
-                    {visibleCount >= products.length && (
+                    {/* {visibleCount >= products.length && (
                         <button onClick={handleToggleProducts} className="productsBtn">
                         </button>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

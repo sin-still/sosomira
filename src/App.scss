@@ -206,6 +206,11 @@ ul{
       list-style: none;
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width:840px){
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
       li{
         position: relative;
         width: 30%;
@@ -213,6 +218,10 @@ ul{
         overflow: hidden;
         /* border-radius: 15px 15px 0 0; */
         box-shadow: 10px 0px 15px #d7d7d7;
+        @media screen and (max-width:840px){
+          width: 420px;
+          margin-bottom: 50px;
+        }
         .md-img{
           img{
             width: 101%;
@@ -278,6 +287,9 @@ ul{
       margin-top: 50px;
       .products-tab-menu{
         width: 50%;
+        @media screen and (max-width:840px){
+          width: 100%;
+        }
         .products-tab-item{
           width: 33%;
 
@@ -304,19 +316,23 @@ ul{
     .p-list {
       display: flex;
       flex-wrap: wrap; /* 필요할 때 줄바꿈 */
-      justify-content: space-between;
+      justify-content: start;
       box-sizing: border-box;
+        @media screen and (max-width:840px){
+          justify-content: center;
+        }
       
         .product-card {
           display: inline-block;
-          width: 23%; /* 4개가 옆으로 정렬되므로 각 제품 카드의 너비 조정 */
+          width: 330px; 
+          margin-right: 30px;/* 4개가 옆으로 정렬되므로 각 제품 카드의 너비 조정 */
           margin-bottom: 50px; /* 각 행 사이에 간격을 줌 */
           box-sizing: border-box;
           position: relative;
           
-          @include tablet{
-            width: 30%;
-          }
+         /*  @include tablet{
+            width: 3
+          } */
           
           .product-blur{
             position: absolute;
@@ -447,11 +463,24 @@ ul{
       padding: 0 50px;
       justify-content: space-between;
       box-sizing: border-box;
+      @media screen and (max-width:840px){
+        flex-direction: column;
+      }
       .foot-addr{
         display: flex;
         flex-direction: column;
         height: 100%;
         color: #ffffffd2;
+        @media screen and (max-width:840px){
+          display: flex;
+          height: 450%;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          h3{
+            display: none;
+          }
+        }
         h3{
           height: 50%;
 
@@ -469,13 +498,20 @@ ul{
         box-sizing: border-box;
         padding-top: 50px;
         width: 60%;
+        @media screen and (max-width:840px){
+          width: 100%;
+          >ul{
+            padding: 0;
+            justify-content: space-between;
+          }
+        }
         >ul{
           list-style: none;
           display: flex;
           overflow: hidden;
-          
           align-items: center;
           box-sizing: border-box;
+          
           >li{
             height: 200px;
             width: 30%;

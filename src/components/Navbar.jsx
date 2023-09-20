@@ -13,7 +13,7 @@ const Navbar = ({hideLoginModal, showLoginModal, isLoginModalOpen, setIsLoginMod
                 <li><NavLink to='/'style={({isActive}) =>( isActive ? activeStyle : undefined )}>HOME</NavLink></li>
                 <li><NavLink to='/interior' style={({isActive}) =>( isActive ? activeStyle : undefined )}>인테리어</NavLink></li>
                 <li><NavLink to='/kitchen' style={({isActive}) =>( isActive ? activeStyle : undefined )}>주방용품</NavLink></li>
-                <li><NavLink to='/office' style={({isActive}) =>( isActive ? activeStyle : undefined )}>사무용품</NavLink></li>
+                <li><NavLink to='/light' style={({isActive}) =>( isActive ? activeStyle : undefined )}>조명</NavLink></li>
                 <li><NavLink to='/fabric' style={({isActive}) =>( isActive ? activeStyle : undefined )}>페브릭/생활</NavLink></li>
                 <li className='mobileSgin'>
                     <ul>
