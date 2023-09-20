@@ -2,6 +2,9 @@
 $tablet-max: 1023px;
 $desktop-min: 1440px;
 
+.success-color{color: #60d119;}
+.error-color{color: red;}
+
 
  @mixin tablet{
   @media (max-width: $tablet-max) {
@@ -13,20 +16,37 @@ $desktop-min: 1440px;
     @content;
   }
 }
-.h-fixed{
-  position: fixed;
-  top: 0;
-  left: 0;
+
+ul{
+  list-style: none;
+  a{
+    text-decoration: none;
+  }
 }
 .App{
+  /* .sssss{width: 50px !important;}
+  .ant-form-item-label{
+    width: 30px;
+  }
+  .ant-col-8{
+    flex: 0 0 20%;
+    max-width: 20%;
+  } */
+    
   overflow: hidden;
   //HEADER
   .header{
+    position: relative;
     z-index: 100;
     width: 100%;
     height: 100px;
     border-bottom: 1px solid #ccc;
     background: rgba(255,255,255,.8);
+    &.h-fixed{
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
    .container{
         width: 100%;
         max-width: 1440px;
@@ -35,6 +55,50 @@ $desktop-min: 1440px;
         align-items: center;
         justify-content: space-between;
         height: 100%;
+        .signArea{
+          .signList{
+            display: flex;
+            justify-content: space-between;
+            li{
+              &::after {
+                content: "";
+                background: #867070;
+                width: 100%;
+                height: 1px;
+                position: absolute;
+                left: 0;
+                bottom: -5px;
+                transform: scaleX(0);
+                transition: .3s;
+              }
+              &:hover{
+                color: #ed6363;
+                font-weight: 500;
+                  
+              }
+              &:hover::after{
+                transform: scaleX(1);
+              }
+              position: relative;
+            }
+            .sign-in{
+              margin-right: 10px;
+              width: 3rem;
+              cursor: pointer;
+              
+            }
+            .sign-up{
+              a{
+                color: #000;
+                &:hover{
+                  color: #ed6363;
+                  font-weight: 500;
+                    
+                }
+              }
+            }
+          }
+        }
         .logo{width: 150px; fill: #ed6363;}
         img.svg-img {
            /* 원하는 색상으로 설정 */
@@ -46,6 +110,18 @@ $desktop-min: 1440px;
             li{
               margin: 0 20px;
               box-sizing: border-box;
+              &.mobileSgin{
+                display: none;
+                @include tablet{
+                  display: block;
+                  .sign-in{
+                    cursor: pointer;
+                    &:hover{
+                      color: #ed6363;
+                    }
+                  }
+                }
+              }
               a{
                 color: #222;
                 text-decoration: none;
@@ -74,14 +150,14 @@ $desktop-min: 1440px;
             }
           }
         }
-        .mobileBar{display: none;
+        .mobileBar{display: none; 
           .hamburerIcon{font-size: 30px;}
-          .nav{display: block; position: absolute; top: 100px; left: 0;
+          .nav{display: block; position: absolute; top: 100px; left: 0;background: rgba(255,255,255,.8);
             width: 100%;
             ul{
               flex-direction: column;
                padding: 0;
-               background: rgba(255,255,255,.8);
+               /* background: rgba(255,255,255,.8) */
               li{
                 border-bottom: 1px solid #ddd;
                 padding: 10px 0;
@@ -106,7 +182,7 @@ $desktop-min: 1440px;
       width: 100%;
       max-width: 1440px;
       margin: 0 auto;
-      padding: 100px 0;
+      padding: 100px 0 50px;
       h2{
         position: relative;
         z-index: 2;
@@ -118,7 +194,7 @@ $desktop-min: 1440px;
           content: "";
           width: 50px;
           height: 15px;
-          background: #ec4c4c;
+          background: #f9baba;
         }
       }
   }
@@ -130,13 +206,22 @@ $desktop-min: 1440px;
       list-style: none;
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width:840px){
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
       li{
         position: relative;
         width: 30%;
         height: 500px;
         overflow: hidden;
-        border-radius: 15px 15px 0 0;
-        box-shadow: 10px 6px 15px #868686;
+        /* border-radius: 15px 15px 0 0; */
+        box-shadow: 10px 0px 15px #d7d7d7;
+        @media screen and (max-width:840px){
+          width: 420px;
+          margin-bottom: 50px;
+        }
         .md-img{
           img{
             width: 101%;
@@ -171,28 +256,63 @@ $desktop-min: 1440px;
 
 
   //배너
-  .banner{
+  /* .banner{
     width: 100%;
-    height: 200px;
+    height: 600px;
     font-size: 50px;
-    background:url(./img/banner3.jpg) bottom;
-    
-    box-shadow: 3px 3px 3px #fff;
+    background:#fde1cb;
+    opacity: .6;
+    background-attachment: fixed;
+    background-size: 100%;
+    box-shadow: 3px 0px  20px #fff;
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
     text-transform: uppercase;
     text-shadow: -3px -5px 3px #727272;
     color: #fff;
-  }
+  } */
 
   //PRODUCKS
   .products {
     width: 100%;
     max-width: 1540px;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 100px 50px;
     box-sizing: border-box;
+    .products-tab{
+      width: 100%;
+      text-align: center;
+      margin: 100px 0;
+      margin-top: 50px;
+      .products-tab-menu{
+        width: 50%;
+        @media screen and (max-width:840px){
+          width: 100%;
+          height: 70px;
+          display: flex;
+          align-items: center;
+        }
+        @media screen and (max-width:330px){
+          flex-direction: column;
+        }
+        
+        .products-tab-item{
+          width: 33%;
+          @media screen and (max-width:540px){
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+          }
+          @media screen and (max-width:330px){
+            width: 100%;
+          }
+
+        }
+      }
+    }
     .productsBtnBox{
       display: block;
       text-align: center;
@@ -213,16 +333,23 @@ $desktop-min: 1440px;
     .p-list {
       display: flex;
       flex-wrap: wrap; /* 필요할 때 줄바꿈 */
-      justify-content: space-between;
+      justify-content: start;
       box-sizing: border-box;
+        @media screen and (max-width:840px){
+          justify-content: center;
+        }
       
         .product-card {
           display: inline-block;
-          width: 23%; /* 4개가 옆으로 정렬되므로 각 제품 카드의 너비 조정 */
-          margin-bottom: 20px; /* 각 행 사이에 간격을 줌 */
+          width: 330px; 
+          margin-right: 30px;/* 4개가 옆으로 정렬되므로 각 제품 카드의 너비 조정 */
+          margin-bottom: 50px; /* 각 행 사이에 간격을 줌 */
           box-sizing: border-box;
           position: relative;
           
+         /*  @include tablet{
+            width: 3
+          } */
           
           .product-blur{
             position: absolute;
@@ -236,17 +363,21 @@ $desktop-min: 1440px;
               font-weight: bold;
               color: #000000bc;
               font-size: 30px;
+              text-align: center;
+              padding-bottom: 18%;
             }
           }
           a{
             
             text-decoration: none;
             color: #222;
-            
-          .product-img {
-            width: 100%;
-            height: 500px;
-          }
+            .product-imgBox{
+              height: 450px;
+              .product-img {
+                height: 100%;
+                width: 100%;
+              }
+            }
     
           .product-contents {
             display: flex;
@@ -283,6 +414,7 @@ $desktop-min: 1440px;
     h2{
       position: relative;
       z-index: 2;
+      font-size: 45px;
       &::after{
         z-index: -1;
         position: absolute;
@@ -291,7 +423,7 @@ $desktop-min: 1440px;
         content: "";
         width: 50px;
         height: 15px;
-        background: #60d119;
+        background: #ffe8be;
       }
     }
 
@@ -313,7 +445,7 @@ $desktop-min: 1440px;
         object-fit: contain;
         padding: 20px;
         box-sizing: border-box;
-        height: 800px;
+        height: 80vh;
         img{
           width: 100%;
           height: 100%;
@@ -348,11 +480,24 @@ $desktop-min: 1440px;
       padding: 0 50px;
       justify-content: space-between;
       box-sizing: border-box;
+      @media screen and (max-width:840px){
+        flex-direction: column;
+      }
       .foot-addr{
         display: flex;
         flex-direction: column;
         height: 100%;
         color: #ffffffd2;
+        @media screen and (max-width:840px){
+          display: flex;
+          height: 450%;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          h3{
+            display: none;
+          }
+        }
         h3{
           height: 50%;
 
@@ -370,13 +515,20 @@ $desktop-min: 1440px;
         box-sizing: border-box;
         padding-top: 50px;
         width: 60%;
+        @media screen and (max-width:840px){
+          width: 100%;
+          >ul{
+            padding: 0;
+            justify-content: space-between;
+          }
+        }
         >ul{
           list-style: none;
           display: flex;
           overflow: hidden;
-          
           align-items: center;
           box-sizing: border-box;
+          
           >li{
             height: 200px;
             width: 30%;
@@ -411,7 +563,7 @@ $desktop-min: 1440px;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 0px 0 50px ;
     box-sizing: border-box;
     margin-bottom: 50px;
     
@@ -431,7 +583,7 @@ $desktop-min: 1440px;
             content: "";
             width: 50px;
             height: 15px;
-            background: #faa22e;
+            background: #fcdcb2;
           }
         }
       }
@@ -475,6 +627,63 @@ $desktop-min: 1440px;
         }
     }
   }
+  .signWrap{
+    ul{list-style: none;}
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    .flexBox{display: flex; align-items: center; height: 3.6rem;}
+    .signUpArea{
+      padding:1rem 5rem 5rem 5rem;
+      border: none;
+      margin: 0 auto;
+      max-width: 1000px;
+      .label-style{
+        display: block; margin-bottom: .5rem;font-size: 1.0rem;
+      }
+      .input-style{
+        width: 35rem; height: 3.6rem;border: 1px solid #ddd;margin-right: .5rem; padding: .3rem 1rem;font-size:1.3rem;box-sizing: border-box;
+      }
+      .input-style2{
+        height: 3.6rem;border: 1px solid #ddd; width:24.1rem; font-size:1.3rem;
+      }
+      .btn-style{
+        width: 20%; height: 3.6rem; background: #fff; border: 1px solid #ddd; color: #959595;box-sizing: border-box;
+      }
+      .submit-style{
+        width: 100%; height: 5.0rem; background: #644b36; color: #fff;font-size: 1.5rem;
+        border: none;
+      }
+      .select-style{
+        width: 10.0rem; height: 3.6rem; border: 1px solid #ddd;
+      }
+      .help-style{
+        margin-top: .5rem; display: block;font-size: .8rem; color: #959595; letter-spacing: 1px;
+      }
+      .area-style{
+        padding-left: 2rem;
+        padding-bottom: 20px;
+      }
+      .Mes-style{
+        display: block;
+      }
+      .btn-style{
+        &:hover{
+          color: #000;
+        }
+      }
+      .termsBox{
+        height: 15.0rem; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; padding: 2.0rem; border: 1px solid #959595; margin: 1.0rem 0 2.0rem; 
+        &::-webkit-scrollbar{display: none;}
+      }
+      .terms-section h3{margin-top: 30px;}
+    }
+    .submit-section{
+      display: flex; justify-content: center;
+    }
+  }
+
+
   @include desktop{
     
     .header{
@@ -536,11 +745,15 @@ $desktop-min: 1440px;
             padding: 10px 5px;
             order: 3
         }
+        .signArea{
+          display: none;
+        }
         
       }
     }
     .products{
       padding: 30px 60px;
       box-sizing: border-box;
+      
     }
   } 

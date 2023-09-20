@@ -91,7 +91,7 @@ const ProductPage = () => {
   return (
     <div className="detailPage">
       <h2>상세페이지</h2>
-      <button onClick={() => navigate(-1)} id="back-btn">
+      <button onClick={() => navigate(-1)} id="back-btn" style={{ cursor: "pointer" }}>
         이전페이지
       </button>
       <div className="detailPage-box">

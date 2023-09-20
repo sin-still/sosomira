@@ -1,47 +1,60 @@
-import { AiOutlineMinus } from "react-icons/ai"; 
-import { BiPlus } from "react-icons/bi"; 
-import { AiFillAliwangwang } from "react-icons/ai"; 
 import React, { useEffect, useState } from 'react';
-import MainSlide from './MainSlide';
-import Magazine from './Magazine';
-import Mdpick from './Mdpick';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config/constants";
-import Screen from "./Screen";
+import { AiFillAliwangwang } from "react-icons/ai"; 
+import { BiPlus } from "react-icons/bi"; 
+import { AiOutlineMinus } from "react-icons/ai"; 
+import { Radio } from 'antd';
 
-const MainPage = () => {
+const Office = () => {
+    
     const [products, setProducts] = useState([]);
     const [displayedProducts, setDisplayedProducts] = useState([]);
-    
+    const [visibleCount, setVisibleCount] = useState(12);
     const [showAllProducts, setShowAllProducts] = useState(false);
-    // 보여지는 프로덕트 총개수
-    const [visibleCount, setVisibleCount] = useState(8);
-    Screen(setVisibleCount);
-
+    const [selectedValue, setSelectedValue] = useState("a")
+    const categoryData = () => {
+        if (selectedValue === 'a') {
+            return 'C03';
+        } else if (selectedValue === 'b') {
+            return 'C0301';
+        } else if (selectedValue === 'c') {
+            return 'C0302';
+        } else {
+            return 'Unknown Category';
+        }
+    };
+    const tabtxt = () => {
+        if (categoryData() === 'C03') {
+            return 'All';
+        } else if (selectedValue === 'C0301') {
+            return '펜던트';
+        } else if (selectedValue === 'C0302') {
+            return '테이블';
+        } else {
+            return 'Unknown Category';
+        }
+    };
+    console.log(categoryData());
     useEffect(() => {
         let url = `${ API_URL }/products`;
         axios.get(url)
             .then((result) => {
-                const products = result.data.product;
+                const products = result.data.product.filter(item => item.category.includes(categoryData())) ;
+                console.log(categoryData())
                 setProducts(products);
-
-                // Only update displayedProducts when not showing all products
-                if (!showAllProducts) {
-                    setDisplayedProducts(products.slice(0, visibleCount));
-                }
+                setDisplayedProducts(products.slice(0, visibleCount));
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [visibleCount, showAllProducts]);
+    }, [visibleCount, selectedValue]);
 
     const handleLoadMore = () => {
-        if (visibleCount + 4 <= products.length) {
-            setDisplayedProducts(products.slice(0, visibleCount + 4));
-            setVisibleCount(visibleCount + 4);
+        if (visibleCount + 12 < products.length) {
+            setVisibleCount(visibleCount + 12);
         } else {
-            setDisplayedProducts(products);
             setVisibleCount(products.length);
             setShowAllProducts(true);
         }
@@ -50,26 +63,32 @@ const MainPage = () => {
     const handleToggleProducts = () => {
         setShowAllProducts(!showAllProducts);
         if (!showAllProducts) {
-            setDisplayedProducts(products.slice(0, visibleCount + 4)); // Show limited products with the next batch
+            setVisibleCount(products.length);
         } else {
-            setDisplayedProducts(products.slice(0, visibleCount)); // Show limited products
+            setVisibleCount(4);
         }
     };
-
+    const onChange = (e) => {
+        const value = e.target.value; // 선택된 라디오 버튼의 값
+        setSelectedValue(value); // selectedValue를 업데이트
+    
+        console.log(`radio checked: ${value}`);
+    };
     return (
         <div>
-            <MainSlide />
-            <Mdpick />
-            <div className="banner">
-                <p>
-                    
-                </p>
-            </div>
+
             <div className="products">
-                <h2 className="products-title">Products</h2>
+                <h2 className="products-title">조명</h2>
+                <div className='products-tab'>
+                    <Radio.Group onChange={onChange} defaultValue={selectedValue} className='products-tab-menu'>
+                        <Radio.Button className='products-tab-item' value="a">ALL</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="b">펜던트</Radio.Button>
+                        <Radio.Button className='products-tab-item' value="c">테이블</Radio.Button>
+                    </Radio.Group>
+                </div>
                 <div id="product-list" className="p-list">
-                    {displayedProducts.map((product, idx) => {
-                        idx++
+                    {displayedProducts.map((product) => {
+                        
                         return (
                             <div className="product-card" key={product.id}>
                                 {product.soldout === 1? <div className="product-blur"><span>SOLD OUT</span></div> : null}
@@ -78,7 +97,7 @@ const MainPage = () => {
                                         <img src={`${API_URL}/${product.imageUrl}`} alt="프로덕트이미지01"  className="product-img" />
                                     </div>
                                     <div className="product-contents">
-                                        <div className="product-name"er>{product.name}</div>
+                                        <div className="product-name">{product.name}</div>
                                         <div className="product-price">{product.price}원</div>
                                         <div className="product-seller">
                                             <AiFillAliwangwang className="product-avatar" />
@@ -96,18 +115,14 @@ const MainPage = () => {
                             <BiPlus />
                         </button>
                     )}
-                    {visibleCount >= products.length && null
-                    /* (
+                    {/* {visibleCount >= products.length && (
                         <button onClick={handleToggleProducts} className="productsBtn">
-                            
                         </button>
-                    ) */
-                    }
+                    )} */}
                 </div>
             </div>
-            <Magazine />
         </div>
     );
 };
 
-export default MainPage;
+export default Office;
