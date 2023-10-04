@@ -15,7 +15,7 @@ export const isActiveToken = async (accessToken) => {
       accessToken: accessToken
     });
     const result = response.data.result;
-    console.log(result);
+    
     if(result.id){
       return { 'accessResult' : true , 'user_id' : result.id }
     } else {
