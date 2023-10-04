@@ -25,7 +25,7 @@ const Header = () => {
    
    useEffect(() => {
       // AccessToken을 사용하는 코드
-      console.log('AccessToken: '+accessToken);
+      
       
       const verifyToken = async () => {
         const result = await isActiveToken(accessToken);
@@ -53,7 +53,7 @@ const Header = () => {
       /* console.log('Navbar is rendered'); */
    }, [icon])
 
-   console.log(accessResult);
+   
    
    if(accessResult == true){
       return (
