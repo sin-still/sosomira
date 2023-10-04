@@ -5,6 +5,9 @@ import { API_URL } from "../config/constants";
 import axios from "axios";
 import { useAccessToken } from './AccessTokenContext';
 
+const StyledModal = styled(Modal)`
+      
+      `
 const LoginModal = ({ isOpen, onClose }) => {
    //const { setAccessToken } = useAccessToken();
    const [loading, setLoading] = useState(false); // 로딩 상태를 관리하는 예시 상태
@@ -82,13 +85,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       onClose(); // 모달 닫기
    }
 
-   const StyledModal = styled(Modal)`
-      /* .ant-modal-content {
-         
-         padding: 50px 150px;
-         
-      } */
-      `
+   
    
 
    return (
