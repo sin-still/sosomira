@@ -1,15 +1,42 @@
 import { AiFillCamera } from "react-icons/ai";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, InputNumber, Divider, Form, Input, Upload, message, Modal, Cascader } from "antd";
 import "./UploadPage.scss";
 import { API_URL } from "../config/constants";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { isActiveToken } from "./AccessTokenContext"
 
 const { TextArea } = Input;
 
-
 const UploadPage = () => {
+  // 로그인 여부 검사
+  const history = useNavigate();
+  const [accessResult, setAccessResult] = useState(null);
+  const [user_id, setUserId] = useState(null);
+
+  const accessToken = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    // AccessToken을 사용하는 코드
+    console.log('AccessToken: '+accessToken);
+    
+    const verifyToken = async () => {
+      const result = await isActiveToken(accessToken);
+      console.log(result.accessResult);
+      setAccessResult(result.accessResult);
+      setUserId(result.user_id);
+      //로그인 정보가 없을 시
+      if (result.accessResult !== true || result.accessResult == null) {
+        alert("로그인 후 이용해주세요.");
+        // 이전 페이지로 이동
+        history(-1);
+      }
+    };
+    verifyToken();
+  }, []);
+
+  //로그인 정보가 있을 시
   const passwords = process.env.REACT_APP_PASSWORD
   console.log("🚀 ~ file: UploadPage.jsx:14 ~ UploadPage ~ passwords:", passwords)
   const treeData = [
@@ -74,7 +101,6 @@ const UploadPage = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isPasswordPopupVisible, setIsPasswordPopupVisible] = useState(false);
   const [password, setPassword] = useState("");
-  const history = useNavigate();
 
   const onSubmit = (values) => {
     // 비밀번호 팝업을 띄웁니다.
@@ -226,8 +252,6 @@ const UploadPage = () => {
           <Button id="submit-button" onClick={onSubmit}>
             상품등록하기
           </Button>
-        </Form.Item>
-        <Form.Item>
         </Form.Item>
       </Form>
 

@@ -30,6 +30,7 @@ const SignUpForm = () => {
    const phoneRule = /^\d{8}$/;
    const emailRule = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
    const birthRule = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+   const [setUser] = useState(null);
 
 /* 1. 회원가입 만들기 BE */
    const [ messages, setMessages ] = useState({
@@ -138,7 +139,20 @@ const SignUpForm = () => {
       const newValue = event.target.value;
       setId(newValue);
       if (idRule.test(newValue)) {
-         handleMessageChange('id', '사용 가능한 아이디입니다.', 'success-color');
+         axios
+            .get(`${API_URL}/users/${id}`)
+            .then((result) => {
+               const user_info = result.data;
+               if(!user_info.user){
+                  handleMessageChange('id', '사용 가능한 아이디입니다.', 'success-color');
+                } else {
+                  handleMessageChange('id', '아이디가 중복됩니다.', 'error-color');
+                  setId('');
+               }
+            })
+            .catch((error) => {
+               console.log(error);
+            });
       } else if (newValue === "") {
          handleMessageChange('id', '아이디를 입력해주세요.', 'error-color');
       } else {
@@ -250,7 +264,7 @@ const SignUpForm = () => {
                         <input type="text" name="idArea" 
 
                         id="idArea" className='input-style' required size={20} value={id} onBlur={handleId} onChange={(event)=>{setId(event.target.value)}} ref={idInputRef}/>
-                        <button className="btn-style">중복확인</button>
+                        {/* <button className="btn-style">중복확인</button> */}
                         <span className={`Mes-style ${messages.id.color}`}>{messages.id.text}</span>
                         <p className="help-style"><AiOutlineCheck /> 영문소문자/숫자, 4-16자</p>
                      </div>

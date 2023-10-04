@@ -10,8 +10,31 @@ import "./DropdownMenu.css"
 import ScrollPosition from "../event/ScrollPosition"
 import { Button, Modal } from "antd"
 import LoginModal from "./LoginModal"
+import { isActiveToken } from "./AccessTokenContext"
 
 const Header = () => {
+   const [accessResult, setAccessResult] = useState(null);
+   const [user_id, setUserId] = useState(null);
+   function logout(){
+      localStorage.removeItem('accessToken');
+      setAccessResult(false);
+      window.location.href = '/';
+   }
+
+   const accessToken = localStorage.getItem('accessToken');
+   
+   useEffect(() => {
+      // AccessToken을 사용하는 코드
+      console.log('AccessToken: '+accessToken);
+      
+      const verifyToken = async () => {
+        const result = await isActiveToken(accessToken);
+        setAccessResult(result.accessResult); // 결과를 상태로 설정 (true, false)
+        setUserId(result.user_id);
+      };
+      
+      verifyToken();
+    }, [accessToken, accessResult]);
    const scrollPosition = ScrollPosition()
    const navigate = useNavigate()
    const [icon, setIcon] = useState(true)
@@ -30,48 +53,92 @@ const Header = () => {
       /* console.log('Navbar is rendered'); */
    }, [icon])
 
-   return (
-      <header className={`header ${scrollPosition > 0 ? "h-fixed" : ""}`}>
-         <div className='container'>
-            <h1 className='logoBox'>
-               <Link to='/'>
-                  <img className='logo' src={logo} alt='logo' />
-               </Link>
-            </h1>
-            <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
-            <div className='mobileBar'>
-               {icon ? (
-                  <GiHamburgerMenu
-                     className='hamburgerIcon'
-                     onClick={toggleMenu}
-                  />
-               ) : (
-                  <AiOutlineClose className='closeIcon' onClick={toggleMenu} />
-               )}
-               <CSSTransition
-                  in={!icon}
-                  timeout={300}
-                  classNames='menu'
-                  unmountOnExit
-               >
-                  <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
-               </CSSTransition>
+   console.log(accessResult);
+   
+   if(accessResult == true){
+      return (
+         <header className={`header ${scrollPosition > 0 ? "h-fixed" : ""}`}>
+            <div className='container'>
+               <h1 className='logoBox'>
+                  <Link to='/'>
+                     <img className='logo' src={logo} alt='logo' />
+                  </Link>
+               </h1>
+               <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
+               <div className='mobileBar'>
+                  {icon ? (
+                     <GiHamburgerMenu
+                        className='hamburgerIcon'
+                        onClick={toggleMenu}
+                     />
+                  ) : (
+                     <AiOutlineClose className='closeIcon' onClick={toggleMenu} />
+                  )}
+                  <CSSTransition
+                     in={!icon}
+                     timeout={300}
+                     classNames='menu'
+                     unmountOnExit
+                  >
+                     <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
+                  </CSSTransition>
+               </div>
+               <div className="signArea">
+                  <ul className="signList">
+                     <li className="sign-in">{user_id}님 로그인</li>
+                     <li className="logout">
+                        <div onClick={()=>logout()}>로그아웃</div>
+                     </li>
+                  </ul>
+               </div>
+               <button className='btn' onClick={() => navigate("/uploadpage")}>
+                  <CgSoftwareDownload />
+               </button>
             </div>
-            <div className="signArea">
-               <ul className="signList">
-                  <li onClick={showLoginModal} className="sign-in">로그인</li>
-                  <li className="sign-up">
-                     <Link to='/signup'>회원가입</Link>
-                  </li>
-               </ul>
+            <LoginModal isOpen={isLoginModalOpen} onClose={hideLoginModal} />
+         </header>
+      )
+   } else {
+      return (
+         <header className={`header ${scrollPosition > 0 ? "h-fixed" : ""}`}>
+            <div className='container'>
+               <h1 className='logoBox'>
+                  <Link to='/'>
+                     <img className='logo' src={logo} alt='logo' />
+                  </Link>
+               </h1>
+               <Navbar />
+               <div className='mobileBar'>
+                  {icon ? (
+                     <GiHamburgerMenu
+                        className='hamburgerIcon'
+                        onClick={toggleMenu}
+                     />
+                  ) : (
+                     <AiOutlineClose className='closeIcon' onClick={toggleMenu} />
+                  )}
+                  <CSSTransition
+                     in={!icon}
+                     timeout={300}
+                     classNames='menu'
+                     unmountOnExit
+                  >
+                     <Navbar />
+                  </CSSTransition>
+               </div>
+               <div className="signArea">
+                  <ul className="signList">
+                     <li onClick={showLoginModal} className="sign-in">로그인</li>
+                     <li className="sign-up">
+                        <Link to='/signup'>회원가입</Link>
+                     </li>
+                  </ul>
+               </div>
             </div>
-            <button className='btn' onClick={() => navigate("/uploadpage")}>
-               <CgSoftwareDownload />
-            </button>
-         </div>
-         <LoginModal isOpen={isLoginModalOpen} onClose={hideLoginModal} />
-      </header>
-   )
+            <LoginModal isOpen={isLoginModalOpen} onClose={hideLoginModal} />
+         </header>
+      )
+   }
 }
 
 export default Header
