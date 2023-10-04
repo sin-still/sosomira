@@ -25,7 +25,6 @@ const Interior = () => {
             return 'Unknown Category';
         }
     };
-    console.log(categoryData());
     useEffect(() => {
         let url = `${ API_URL }/products`;
         axios.get(url)
@@ -61,7 +60,6 @@ const Interior = () => {
         const value = e.target.value; // 선택된 라디오 버튼의 값
         setSelectedValue(value); // selectedValue를 업데이트
     
-        console.log(`radio checked: ${value}`);
     };
     return (
         <div>

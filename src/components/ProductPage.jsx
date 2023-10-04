@@ -77,7 +77,7 @@ const ProductPage = () => {
       });
   };
 
-  console.log(product);
+  
 
   if (product === null) {
     return (

@@ -50,7 +50,7 @@ const Header = () => {
    }
 
    useEffect(() => {
-      /* console.log('Navbar is rendered'); */
+     
    }, [icon])
 
    
