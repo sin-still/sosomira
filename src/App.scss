@@ -16,7 +16,15 @@ $desktop-min: 1440px;
     @content;
   }
 }
-
+.none{
+  display: none;
+}
+.show{
+  display: block;
+  .logout{
+    cursor: pointer;
+  }
+}
 ul{
   list-style: none;
   a{
@@ -99,6 +107,24 @@ ul{
             }
           }
         }
+        .signArea-user{
+          .signList{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            .logout-box{
+              width: 100%;
+              text-align: right;
+
+              .logout{
+                cursor: pointer;
+
+                display: inline-block;
+              }
+            }
+          }
+        }
         .logo{width: 150px; fill: #ed6363;}
         img.svg-img {
            /* 원하는 색상으로 설정 */
@@ -114,6 +140,9 @@ ul{
                 display: none;
                 @include tablet{
                   display: block;
+                  &.none{
+                    display: none;
+                  }
                   .sign-in{
                     cursor: pointer;
                     &:hover{
@@ -755,6 +784,9 @@ ul{
             order: 3
         }
         .signArea{
+          display: none;
+        }
+        .signArea-user{
           display: none;
         }
         

@@ -20,7 +20,6 @@ const Header = () => {
       setAccessResult(false);
       window.location.href = '/';
    }
-
    const accessToken = localStorage.getItem('accessToken');
    
    useEffect(() => {
@@ -52,6 +51,10 @@ const Header = () => {
    useEffect(() => {
      
    }, [icon])
+   useEffect(() => {
+      // 페이지가 이동될 때마다 icon 상태를 초기화
+      setIcon(true);
+    }, [window.location.pathname]);
 
    
    
@@ -64,7 +67,15 @@ const Header = () => {
                      <img className='logo' src={logo} alt='logo' />
                   </Link>
                </h1>
-               <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
+               <Navbar 
+                  hideLoginModal={hideLoginModal} 
+                  showLoginModal={showLoginModal} 
+                  isLoginModalOpen={isLoginModalOpen} 
+                  setIsLoginModalOpen={setIsLoginModalOpen} 
+                  accessResult={accessResult} 
+                  logout={logout} 
+                  user_id={user_id}
+               />
                <div className='mobileBar'>
                   {icon ? (
                      <GiHamburgerMenu
@@ -80,14 +91,22 @@ const Header = () => {
                      classNames='menu'
                      unmountOnExit
                   >
-                     <Navbar hideLoginModal={hideLoginModal} showLoginModal={showLoginModal} isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen}/>
+                     <Navbar 
+                        hideLoginModal={hideLoginModal} 
+                        showLoginModal={showLoginModal} 
+                        isLoginModalOpen={isLoginModalOpen} 
+                        setIsLoginModalOpen={setIsLoginModalOpen} 
+                        accessResult={accessResult} 
+                        logout={logout} 
+                        user_id={user_id}
+                     />
                   </CSSTransition>
                </div>
-               <div className="signArea">
+               <div className="signArea-user">
                   <ul className="signList">
-                     <li className="sign-in">{user_id}님 로그인</li>
-                     <li className="logout">
-                        <div onClick={()=>logout()}>로그아웃</div>
+                     <li className="user-info">{user_id}님 반갑습니다</li>
+                     <li className="logout-box">
+                        <div className="logout" onClick={()=>logout()}>로그아웃</div>
                      </li>
                   </ul>
                </div>
@@ -107,7 +126,12 @@ const Header = () => {
                      <img className='logo' src={logo} alt='logo' />
                   </Link>
                </h1>
-               <Navbar />
+               <Navbar 
+                  hideLoginModal={hideLoginModal} 
+                  showLoginModal={showLoginModal} 
+                  isLoginModalOpen={isLoginModalOpen} 
+                  setIsLoginModalOpen={setIsLoginModalOpen}
+               />
                <div className='mobileBar'>
                   {icon ? (
                      <GiHamburgerMenu
@@ -123,7 +147,12 @@ const Header = () => {
                      classNames='menu'
                      unmountOnExit
                   >
-                     <Navbar />
+                     <Navbar 
+                        hideLoginModal={hideLoginModal} 
+                        showLoginModal={showLoginModal} 
+                        isLoginModalOpen={isLoginModalOpen} 
+                        setIsLoginModalOpen={setIsLoginModalOpen}
+                     />
                   </CSSTransition>
                </div>
                <div className="signArea">
