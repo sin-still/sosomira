@@ -53,7 +53,7 @@ const ProductPage = () => {
       setIsModalVisible(false);
       onDeleteProduct();
     } else {
-      message.error("비밀번호가 올바르지 않습니다.");
+      message.error("현재 비밀번호는 123입니다 (임시).");
     }
   };
 

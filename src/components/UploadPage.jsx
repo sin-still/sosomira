@@ -146,7 +146,7 @@ const UploadPage = () => {
           message.error(`에러가 발생했습니다.${err.message}`);
         });
     } else {
-      message.error("비밀번호가 올바르지 않습니다.");
+      message.error("현재 비밀번호는 123입니다. (임시)");
     }
   };
   const [form] = Form.useForm();
