@@ -103,36 +103,43 @@ const ProductPage = () => {
         <div id="image-box">
           <img src={`${API_URL}/${product.imageUrl}`} alt={product.name} />
         </div>
-        <div id="profile-box">
-          <img src="/img/products/avatar.png" alt={product.seller} />
-          <span className="product-seller">{product.seller}</span>
-        </div>
+        
         <div id="contents-box" className="contents-box">
-          <div id="name">{product.name}</div>
-          <div id="price">{product.price}</div>
-          <div id="createAt">
+          <div id="name" className="content-item">{product.name}</div>
+          <div id="description">{product.description}</div>
+          <div id="price" className="content-item">
+            <span className="title">판매가 </span>
+            {product.price}원
+          </div>
+          <div id="product-seller" className="content-item">
+            <span className="title">판매자</span>
+            {product.seller}
+          </div>
+          <div id="createAt" className="content-item">
+          <span className="title">업로드 날짜</span>
             {dayjs(product.createdAt).format("YYYY년 MM월 DD일")}
           </div>
-          <Button
-            type="primary"
-            danger
-            className="payment"
-            size="large"
-            onClick={onClickPurchase}
-            disabled={product.soldout === 1 ? true : false}
-          >
-            {" "}
-            결제하기{" "}
-          </Button>
-          <Button
-            type="primary"
-            danger
-            className="delete"
-            onClick={onClickDelete}
-            size="large"
-          >
-            삭제하기
-          </Button>
+          <div id="payBtn">
+            <Button
+              type="primary"
+              danger
+              className="payment pay-btn"
+              size="large"
+              onClick={onClickPurchase}
+              disabled={product.soldout === 1 ? true : false}
+            >
+              결제하기
+            </Button>
+            <Button
+              type="primary"
+              danger
+              className="delete pay-btn"
+              onClick={onClickDelete}
+              size="large"
+            >
+              삭제하기
+            </Button>
+          </div>
           <Modal
             title="비밀번호 입력"
             visible={isModalVisible}
@@ -146,7 +153,7 @@ const ProductPage = () => {
               placeholder="비밀번호를 입력하세요."
             />
           </Modal>
-          <div id="description">{product.description}</div>
+          
           
         </div>
       </div>
